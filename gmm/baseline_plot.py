@@ -49,11 +49,11 @@ def main(seed=2022):
     
     #flip the label
     if opt.noisy_prob != 0:
-        n_flip = int(M*opt.noisy_prob/2)
+        n_flip = int(M*opt.noisy_prob)
 
-        idx_flip = random.sample(range(int(M/2)), n_flip)
+        idx_flip = random.sample(range(int(M)), n_flip)
         for i in range(len(idx_flip)):
-            y[idx_flip[i]] = 1
+            y[idx_flip[i]] = 1 if idx_flip[i]<M/2 else -1
     y = (y+1)/2
     
     X_tensor = torch.from_numpy(X).float().to(device)

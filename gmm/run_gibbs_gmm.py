@@ -68,10 +68,10 @@ def main(seed=2022):
             
             
             if p_flip != 0:
-                n_flip = int(M*p_flip/2) #??????????????????????????????why/2?????????????????????????????
-                idx_flip = random.sample(range(int(M/2)), n_flip)
+                n_flip = int(M*p_flip)
+                idx_flip = random.sample(range(int(M)), n_flip)
                 for i in range(len(idx_flip)):
-                    y[idx_flip[i]] = 1
+                    y[idx_flip[i]] = 1 if idx_flip[i]<M/2 else -1
             y = (y+1)/2 #convert -1,1 to 0,1
             X_tensor = torch.from_numpy(X).float().to(device)
             y_tensor = torch.from_numpy(y).float().to(device)
