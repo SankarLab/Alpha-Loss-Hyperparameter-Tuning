@@ -8,8 +8,9 @@ __author__ =: Erika Cole
 """
 
 import numpy as np
-import random,os
+import random,os,sys
 from util import gmm_generator_function,prior_calc,likelihood_calc,batch_gradient_descent
+sys.path.append( "../" )
 from slice import slice as slice_fun
 import torch
 #import torch.optim as optim
