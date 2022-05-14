@@ -65,7 +65,7 @@ def main(seed=2022):
             p_flip = p_val
             
             #Generate GMM Training Data
-            [X,y] = gmm_generator_function(M,nmix,mu, sigma, n_chain)
+            [X,y] = gmm_generator_function(M,nmix,mu, sigma)
             
             
             if p_flip != 0:

@@ -242,7 +242,7 @@ def gradient_descent(alpha_map, theta_new, device, X_tensor, y_tensor, n_epochs=
 
 
 
-def batch_gradient_descent(alpha_map, theta_new, n_batches, device, X_tensor, y_tensor, opt, 
+def batch_gradient_descent(alpha_map, theta_new, n_batches, device, X_tensor, y_tensor, opt=None, 
                            n_epochs=1, M=1000, fld_name='result/baseline', save=False):
 
     alpha_tensor = torch.from_numpy(np.array(alpha_map)).float().to(device)
