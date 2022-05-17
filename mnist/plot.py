@@ -85,6 +85,33 @@ plt.tight_layout()
 plt.savefig('res_compare/geweke.png',bbox_inches='tight', dpi=800)
 
 
+########## plot loss for posterior alpha chain ##########
+fld_name = 'result/'
+def plot_eva(eva='loss', noise_lvls =np.arange(0,50,10), epochs=20000, burnin=0, end=20000):
+    #plot loss/acc/mse for the chain
+    evaluate = []
+    experiments = 1
+    noise_lvls = noise_lvls 
+    for i in noise_lvls:
+        for experiment in range(experiments):
+            evaluate.append(np.loadtxt(os.path.join(fld_name,'{:s}chain_noise{:.0f}_exp{:d}.txt'.format(eva, i, experiment+1) ), delimiter=',')[np.newaxis,] )
+    evaluate = np.concatenate(evaluate,axis=0).reshape((len(noise_lvls),experiments,-1)) #5*experiments*chain_len
+    avgeva = evaluate.mean(axis=1) #5*experiments*chain_len -> 5*chain_len
+    
+    plt.figure(figsize=(8,8))
+    for idx,nl in enumerate(noise_lvls):
+        
+        plt.plot(np.arange(epochs)[burnin:end], avgeva[idx][burnin:end], label='{:d}% noise'.format(nl))
+    
+    plt.legend()
+    plt.xlabel('epochs')
+    plt.ylabel('{:s}'.format(eva))
+    plt.savefig('res_compare/{:s}_chain.png'.format(eva),bbox_inches='tight', dpi=800)
+    
+    
+plot_eva()#noise_lvls=[0,20,30]
+   
+    
 
 ########## plot baseline(fixed alpha, find optimal weights) ##########
 

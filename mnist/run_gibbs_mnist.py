@@ -54,11 +54,7 @@ def main(seed=2022):
     experiments = 1 #number of repeatability for the whole process
     cm_average = np.zeros((2,2))             
     
-    alpha_chain = []
-    loss_chain = []
-    logposterior_chain = []
-    MSE = []
-    accuracy = []
+    
     num_classes = 1
     # loads dictionary of optimal weights for alpha=1
     checkpoint = torch.load(os.path.join(fld_name_m,'noise{:.0f}_alpha{:.1f}'.format(opt.noisy_prob*100, 1)) )
@@ -66,6 +62,12 @@ def main(seed=2022):
     #checkpoint_noisy = dict_noisy(checkpoint, .01)
 
     for experiment in range(experiments):
+        alpha_chain = []
+        loss_chain = []
+        logposterior_chain = []
+        MSE = []
+        accuracy = []
+        
         my_alpha = 1
         print('STARTING ALPHA: ', my_alpha)
     
@@ -152,8 +154,9 @@ def main(seed=2022):
                 logposterior_chain.append(l_init)
                 
     
-        
+
         np.savetxt(os.path.join(fld_name,'alphachain_noise{:.0f}_exp{:d}.txt'.format(opt.noisy_prob*100, experiment+1)), alpha_chain, delimiter=',')
+        np.savetxt(os.path.join(fld_name,'accchain_noise{:.0f}_exp{:d}.txt'.format(opt.noisy_prob*100, experiment+1)), accuracy, delimiter=',')
         np.savetxt(os.path.join(fld_name,'logposterior_chain_noise{:.0f}_exp{:d}.txt'.format(opt.noisy_prob*100, experiment+1)), logposterior_chain, delimiter=',')
         np.savetxt(os.path.join(fld_name,'losschain_noise{:.0f}_exp{:d}.txt'.format(opt.noisy_prob*100, experiment+1)), loss_chain, delimiter=',')
         np.savetxt(os.path.join(fld_name,'msechain_noise_{:.0f}_exp{:d}.txt'.format(opt.noisy_prob*100, experiment+1)), MSE, delimiter=',')

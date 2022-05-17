@@ -84,7 +84,7 @@ def alpha_loss_calc(X, y, theta, alpha):
 def prior_calc(x, end_1, end_2, mean, stdev):
     a = (end_1-mean)/stdev
     b = (end_2-mean)/stdev
-    return np.log(stats.truncnorm.pdf(x, a, b, loc=mean, scale=stdev)+1e-6)
+    return np.log(stats.truncnorm.pdf(x, a, b, loc=mean, scale=stdev))
 
 #import matplotlib.pyplot as plt
 #fig, ax = plt.subplots(1, 1)

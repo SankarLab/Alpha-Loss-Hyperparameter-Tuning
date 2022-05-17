@@ -170,6 +170,7 @@ plot_base(normal_losses, normalise=True)
 ########## plot baseline accuracy(fixed alpha, find optimal weights) ##########
 
 from util import accuracy_calc_thetas, gmm_generator_function
+import random
 fld_name = 'result/baseline'
 weight = []
 alphas = np.linspace(0.5,4,21)
@@ -190,10 +191,10 @@ def generate_noisy(noisy_prob=0):
     [X,y] = gmm_generator_function(N=M, n_min=nmix, Mu=mu, Sigma=sigma)
     
     if noisy_prob != 0:
-        n_flip = int(M*noisy_prob/2)
-        idx_flip = random.sample(range(int(M/2)), n_flip)
+        n_flip = int(M*noisy_prob)
+        idx_flip = random.sample(range(int(M)), n_flip)
         for i in range(len(idx_flip)):
-            y[idx_flip[i]] = 1
+            y[idx_flip[i]] = 1 if idx_flip[i]<M/2 else -1
     y = (y+1)/2
     return X, y
 
